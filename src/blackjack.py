@@ -29,14 +29,27 @@ def displayHands():
 def determineWinner(player, dealer):
     if dealer.calculateScore() > 21: 
         print("Congratulations, you win!")
+        print("...................")
+        print(f"You won ${bet}")
+        p1.addFunds(bet)
+        p1.addFunds(bet)
+        print(f"Your current bank is {p1.bank}")
+        print("...................\n")
     elif player.calculateScore() > 21: 
         print('You lose!')
     elif player.calculateScore() > dealer.calculateScore():
         print("Congrats, you win!")
+        print("...................")
+        print(f"You won ${bet}")
+        p1.addFunds(bet)
+        p1.addFunds(bet)
+        print(f"Your current bank is {p1.bank}")
+        print("...................\n")
     elif dealer.calculateScore() > player.calculateScore(): 
         print("you lose!")
     else:
         print("it's a tie! wow that is rare : )")
+        p1.addFunds(bet)
 
 def dealerMove():
     while dealer.calculateScore() <17:
@@ -81,13 +94,25 @@ def game_ends():
 
 
 print("Welcome to BlackJack!!")
+name = input("What's your name, friend?")
+bank = input("and how much are we playing with today, friend?")
+p1 = Player(name, bank)
+
 game_state = True
 while game_state == True:
     
+    bet = input("How much would you like to bet? ($10 minimum)")
+    if p1.checkBet(bet):
+        p1.removeFunds(bet)
+        print(f"${bet} removed from funds. You have ${p1.bank} left.")
+
     print("shuffling the deck...\n")
     deck = Deck()
     deck.shuffle(1000)
     print("dealing the cards...\n")
+
+
+
     player = Hand()
     dealer = Hand()
 
